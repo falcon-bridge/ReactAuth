@@ -1,5 +1,7 @@
 import { useRef, useContext } from "react";
 
+import { useHistory } from "react-router-dom";
+
 import AuthContext from "../../store/auth_contect";
 
 import classes from "./ProfileForm.module.css";
@@ -8,6 +10,8 @@ const ProfileForm = () => {
   const passwordInputRef = useRef();
 
   const authCtx = useContext(AuthContext);
+
+  const history = useHistory();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -23,7 +27,7 @@ const ProfileForm = () => {
         body: JSON.stringify({
           idToken: authCtx.token,
           password: enteredNewPassword,
-          returnSecureToken,
+          returnSecureToken: false,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -31,6 +35,7 @@ const ProfileForm = () => {
       }
     ).then((res) => {
       //assumption : always succeeds
+      history.replace("/");
     });
   };
 
