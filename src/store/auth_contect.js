@@ -50,7 +50,7 @@ export const AuthContextProvider = (props) => {
     if (logoutTimer) {
       clearTimeout(logoutTimer);
     }
-  });
+  }, []);
 
   const loginHandler = (token, expirationTime) => {
     setToken(token);
@@ -67,7 +67,7 @@ export const AuthContextProvider = (props) => {
       // console.log(tokenData.duaration);
       logoutTimer = setTimeout(logoutHandler, tokenData.duaration);
     }
-  }, [tokenData, loginHandler]);
+  }, [tokenData, logoutHandler]);
 
   const contextValue = {
     token,
